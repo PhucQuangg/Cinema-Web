@@ -65,6 +65,11 @@ public class EmailController {
         return "OTP không hợp lệ!";
     }
 
+    @GetMapping("/login")
+    public String showLoginForm() {
+        return "home/login";
+    }
+
     @PostMapping("/login")
     public String login(@RequestParam String email, @RequestParam String password) {
         Optional<User> userOptional = userRepository.findByEmail(email);
