@@ -1,6 +1,7 @@
 package stu.edu.vn.cinema_web.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -11,6 +12,9 @@ import stu.edu.vn.cinema_web.service.OTPService;
 import stu.edu.vn.cinema_web.utils.JwtUtil;
 
 import jakarta.mail.MessagingException;
+
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 @Controller
@@ -31,38 +35,52 @@ public class EmailController {
 
     private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
-    // Đăng ký tài khoản & gửi OTP
-    @PostMapping("/register")
+    @PostMapping("/send-otp")
     @ResponseBody
-    public String register(@RequestParam String email, @RequestParam String password) {
+    public String sendOtp(@RequestParam String email) {
         if (userRepository.findByEmail(email).isPresent()) {
             return "Email đã tồn tại!";
         }
 
-        otpService.saveTemporaryUser(email, password);
-
-        try {
-            emailService.sendOtpEmail(email);
-            return "Mã OTP đã được gửi đến email của bạn!";
-        } catch (MessagingException e) {
-            return "Lỗi khi gửi OTP!";
-        }
+        String otp = otpService.generateOtp(email);
+        emailService.sendOtpEmail(email, otp);
+        return "Mã OTP đã được gửi!";
     }
-
-    // Xác nhận OTP
-    @PostMapping("/verify-otp")
+    @PostMapping("/register")
     @ResponseBody
-    public String verifyOtp(@RequestParam String email, @RequestParam String otp) {
-        Optional<User> userOptional = otpService.getTemporaryUser(email);
-        if (userOptional.isPresent() && emailService.verifyOtp(email, otp)) {
-            User user = userOptional.get();
-            user.setVerified(true);
-            user.setPassword(passwordEncoder.encode(user.getPassword()));
-            userRepository.save(user);
-            emailService.removeOtp(email); // Xóa OTP sau khi xác thực thành công
-            return "Xác thực thành công! Bạn có thể đăng nhập.";
+    public ResponseEntity<Map<String, String>> register(
+            @RequestParam String email,
+            @RequestParam String password,
+            @RequestParam String otp) {
+
+        Map<String, String> response = new HashMap<>();
+
+        // Kiểm tra OTP
+        if (!otpService.verifyOtp(email, otp)) {
+            response.put("status", "error");
+            response.put("message", "Mã OTP không hợp lệ!");
+            return ResponseEntity.badRequest().body(response);
         }
-        return "OTP không hợp lệ!";
+
+        // Kiểm tra email đã tồn tại
+        if (userRepository.findByEmail(email).isPresent()) {
+            response.put("status", "error");
+            response.put("message", "Email đã tồn tại!");
+            return ResponseEntity.badRequest().body(response);
+        }
+
+        // Tạo tài khoản
+        User user = new User();
+        user.setEmail(email);
+        user.setPassword(passwordEncoder.encode(password));
+        user.setVerified(true);
+        userRepository.save(user);
+
+        otpService.removeTemporaryUser(email); // Xóa OTP sau khi đăng ký
+
+        response.put("status", "success");
+        response.put("message", "Đăng ký thành công! Bạn có thể đăng nhập.");
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping("/login")
@@ -73,13 +91,18 @@ public class EmailController {
     @PostMapping("/login")
     public String login(@RequestParam String email, @RequestParam String password) {
         Optional<User> userOptional = userRepository.findByEmail(email);
+
         if (userOptional.isPresent()) {
             User user = userOptional.get();
-            if (!user.isVerified()) return "Tài khoản chưa xác thực OTP!";
+            if (!user.isVerified()) {
+                return "redirect:/auth/login?error=unverified"; // Chuyển hướng về trang login kèm lỗi
+            }
             if (passwordEncoder.matches(password, user.getPassword())) {
-                return "Token: " + jwtUtil.generateToken(email);
+                return "redirect:/home"; // Nếu đúng, chuyển về index.html
             }
         }
-        return "Sai email hoặc mật khẩu!";
+        return "redirect:/auth/login?error=invalid"; // Lỗi email hoặc mật khẩu
     }
+
+
 }

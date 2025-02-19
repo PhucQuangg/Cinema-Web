@@ -20,25 +20,27 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .cors().disable()
                 .csrf().disable()
-                .authorizeHttpRequests()
-                .requestMatchers("/auth/login", "/auth/register").authenticated() // Chỉ yêu cầu đăng nhập ở đây
-                .anyRequest().permitAll() // Các trang khác không cần đăng nhập
-                .and()
-                .formLogin()
-                .loginPage("/auth/login")
-                .loginProcessingUrl("/auth/login")
-                .defaultSuccessUrl("/", true) // Sau khi đăng nhập, quay về trang chủ
-                .permitAll()
-                .and()
-                .logout()
-                .logoutUrl("/logout")
-                .logoutSuccessUrl("/")
-                .permitAll();
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/auth/login", "/auth/register", "/auth/send-otp").permitAll() // ✅ Cho phép đăng ký mà không cần đăng nhập
+                        .anyRequest().permitAll()
+                )
+                .formLogin(login -> login
+                        .loginPage("/auth/login")
+                        .loginProcessingUrl("/auth/login")
+                        .defaultSuccessUrl("/home", true)
+                        .permitAll()
+                )
+                .logout(logout -> logout
+                        .logoutUrl("/auth/logout")
+                        .logoutSuccessUrl("/auth/login")
+                        .deleteCookies("JSESSIONID")
+                        .permitAll()
+                );
 
         return http.build();
     }
+
 
     @Bean
     WebSecurityCustomizer webSecurityCustomizer() {

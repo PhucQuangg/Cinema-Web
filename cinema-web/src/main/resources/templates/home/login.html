@@ -23,12 +23,6 @@
         BONPP </a></h1>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
       </div>
-      <div class="Login_SignUp" id="login_s">
-        <!-- style="font-size: 2rem ; display: inline-block; position: relative;" -->
-        <!-- <li class="nav-item"> -->
-        <a class="nav-link" href="sign_in.html"><i class="fa fa-user-circle-o"></i></a>
-        <!-- </li> -->
-      </div>
       <!-- toggle switch for light and dark theme -->
       <div class="mobile-position">
         <nav class="navigation">
@@ -49,7 +43,7 @@
 
 <div class="container_signup_signin" id="container_signup_signin">
   <div class="form-container sign-up-container">
-    <form name="sign-up-form" action="#" onsubmit="return signUpValidateForm()">
+    <form name="sign-up-form" action="#" onsubmit="return registerUser(event)">
       <h1>Create Account</h1>
       <div class="social-container">
         <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
@@ -57,15 +51,19 @@
         <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
       </div>
       <span>or use your email for registration</span>
-      <input name="sign-up-name" type="text" placeholder="Name" />
-      <input name="sign-up-email" type="email" placeholder="Email" />
-      <input name="sign-up-passwd" type="password" placeholder="Password" />
-      <button>Sign Up</button>
+      <input id="signup-email" name="sign-up-email" type="email" placeholder="Email" required />
+      <div>
+        <input id="otp-input" name="otp" type="text" placeholder="OTP" required />
+        <button type="button" onclick="sendOtp()">Gửi OTP</button> <!-- Nút gửi OTP -->
+      </div>
+      <input id="signup-password" name="sign-up-passwd" type="password" placeholder="Mật khẩu" required />
+      <button type="submit">Đăng ký</button>
+
     </form>
   </div>
   <div class="form-container sign-in-container">
-    <form name="sign-in-form" style="color: var(--theme-title);" action="#"
-          onsubmit="return signInValidateForm()">
+    <form name="sign-in-form" style="color: var(--theme-title);" th:action="@{/auth/login}" method="post"
+          onsubmit="return loginUser(event)">
       <h1>Sign in</h1>
       <div class="social-container">
         <a href="#" class="social" style="color: var(--theme-title);"><i class="fab fa-facebook-f"></i></a>
@@ -74,10 +72,10 @@
         <a href="#" class="social" style="color: var(--theme-title);"><i class="fab fa-linkedin-in"></i></a>
       </div>
       <span>or use your account</span>
-      <input name="sign-in-email" type="email" placeholder="Email" />
-      <input name="sign-in-passwd" type="password" placeholder="Password" />
+      <input id="login-email" name="email" type="email" placeholder="Email" required />
+      <input id="login-password" name="password" type="password" placeholder="Password" required />
       <a href="#">Forgot your password?</a>
-      <button>Sign In</button>
+      <button type="submit">Sign In</button>
     </form>
   </div>
   <div class="overlay-container">
@@ -94,6 +92,10 @@
       </div>
     </div>
   </div>
+</div>
+<div th:if="${param.error}">
+  <p th:text="${param.error == 'unverified' ? 'Tài khoản chưa xác thực OTP!' : 'Sai email hoặc mật khẩu!'}"
+     class="alert alert-danger"></p>
 </div>
 
 <script type="text/javascript" th:src="@{/assets/js/as-alert-message.min.js}"></script>
@@ -140,6 +142,116 @@
 
 <script type="text/javascript"th:src="@{/assets/js/sign-in.js}"></script>
 
-</body>
+<script>
+  // 📨 Gửi OTP qua AJAX
+  // 📨 Gửi OTP
+  function sendOtp() {
+    let emailInput = document.getElementById("signup-email");
+    if (!emailInput || !emailInput.value) {
+      alert("Vui lòng nhập email trước khi gửi OTP!");
+      return;
+    }
 
-</html>
+    fetch('/auth/send-otp', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: new URLSearchParams({ email: emailInput.value })
+    })
+            .then(response => response.text())
+            .then(data => alert(data))
+            .catch(error => console.error('Lỗi:', error));
+  }
+
+  // 📝 Đăng ký tài khoản + xác thực OTP
+  function registerUser(event) {
+    event.preventDefault();
+
+    let emailInput = document.getElementById("signup-email");
+    let passwordInput = document.getElementById("signup-password");
+    let otpInput = document.getElementById("otp-input");
+
+    if (!emailInput || !passwordInput || !otpInput) {
+      alert("Lỗi: Một hoặc nhiều trường nhập liệu bị thiếu!");
+      return;
+    }
+
+    if (!otpInput.value) {
+      alert("Vui lòng nhập mã OTP trước khi đăng ký!");
+      return;
+    }
+
+    fetch('/auth/register', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: new URLSearchParams({
+        email: emailInput.value,
+        password: passwordInput.value,
+        otp: otpInput.value
+      })
+    })
+            .then(response => response.text())
+            .then(data => alert(data))
+            .catch(error => console.error('Lỗi:', error));
+  }
+
+
+  // 📝 Đăng ký tài khoản + xác thực OTP
+  function registerUser(event) {
+    event.preventDefault();
+
+    let email = document.querySelector("input[name='sign-up-email']").value;
+    let password = document.querySelector("input[name='sign-up-passwd']").value;
+    let otp = document.querySelector("input[name='otp']").value;
+
+    if (!otp) {
+      alert("Vui lòng nhập mã OTP trước khi đăng ký!");
+      return;
+    }
+
+    fetch('/auth/register', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: new URLSearchParams({ email, password, otp })
+    })
+            .then(response => {
+              // Kiểm tra nếu phản hồi không phải JSON
+              if (!response.headers.get("content-type")?.includes("application/json")) {
+                throw new Error("Server trả về HTML thay vì JSON");
+              }
+              return response.json();
+            })
+            .then(data => {
+              alert(data.message);
+              if (data.status === "success") {
+                window.location.href = "/auth/login"; // Chuyển hướng sau khi đăng ký thành công
+              }
+            })
+            .catch(error => {
+              console.error('Lỗi:', error);
+              alert("Có lỗi xảy ra! Vui lòng thử lại.");
+            });
+  }
+  function loginUser(event) {
+    event.preventDefault(); // Ngăn form tải lại trang
+
+    let email = document.getElementById("login-email").value;
+    let password = document.getElementById("login-password").value;
+
+    fetch("/auth/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: new URLSearchParams({ email: email, password: password })
+    })
+            .then(response => response.text())
+            .then(data => {
+              console.log("Phản hồi từ server:", data);
+              if (data.includes("Token:")) {
+                window.location.href = "/home";
+              } else {
+                alert("Đăng nhập thất bại: " + data);
+              }
+            })
+            .catch(error => console.error("Lỗi:", error));
+  }
+</script>
+</body>

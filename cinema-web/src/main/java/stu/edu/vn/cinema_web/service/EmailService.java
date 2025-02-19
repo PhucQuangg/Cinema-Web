@@ -32,25 +32,26 @@ public class EmailService {
         return String.format("%06d", random.nextInt(1000000));
     }
 
-    // Gửi email chứa mã OTP
-    public void sendOtpEmail(String recipientEmail) throws MessagingException {
-        String otp = generateOtp();
-        otpStorage.put(recipientEmail, otp); // Lưu OTP để xác minh sau này
+    public void sendOtpEmail(String recipientEmail, String otp) {
+        try {
+            MimeMessage message = mailSender.createMimeMessage();
+            MimeMessageHelper helper = new MimeMessageHelper(message, "utf-8");
 
-        MimeMessage message = mailSender.createMimeMessage();
-        MimeMessageHelper helper = new MimeMessageHelper(message, "utf-8");
+            String emailContent = "<h3>Chào bạn,</h3>"
+                    + "<p>Mã OTP của bạn là: <b>" + otp + "</b></p>"
+                    + "<p>Vui lòng nhập mã này để hoàn tất đăng ký.</p>";
 
-        String emailContent = "<h3>Chào bạn,</h3>"
-                + "<p>Mã OTP của bạn là: <b>" + otp + "</b></p>"
-                + "<p>Vui lòng nhập mã này để hoàn tất đăng ký.</p>";
+            helper.setTo(recipientEmail);
+            helper.setSubject("Mã OTP xác nhận đăng ký");
+            helper.setFrom(senderEmail);
+            helper.setText(emailContent, true);
 
-        helper.setTo(recipientEmail);
-        helper.setSubject("Mã OTP xác nhận đăng ký");
-        helper.setFrom(senderEmail);
-        helper.setText(emailContent, true);
-
-        mailSender.send(message);
+            mailSender.send(message);
+        } catch (MessagingException e) {
+            throw new RuntimeException("Lỗi khi gửi email: " + e.getMessage());
+        }
     }
+
 
     // Kiểm tra OTP có hợp lệ không
     public boolean verifyOtp(String email, String otp) {
