@@ -79,12 +79,17 @@
           <!--/search-right-->
 
         </div>
-        <div class="Login_SignUp" id="login"
-             style="font-size: 2rem ; display: inline-block; position: relative;">
-          <!-- <li class="nav-item"> -->
-          <a class="nav-link" th:href="@{/auth/login}"><i class="fa fa-user-circle-o"></i></a>
-          <!-- </li> -->
+        <div class="Login_SignUp" id="login" style="font-size: 2rem; display: inline-block; position: relative;">
+          <!-- Nếu chưa đăng nhập: Hiển thị icon đăng nhập -->
+          <div th:if="${#authorization.expression('isAnonymous()')}">
+            <a class="nav-link" th:href="@{/login}">
+              <i class="fa fa-user-circle-o"></i>
+            </a>
+          </div>
+          <!-- Nếu đã đăng nhập: Hiển thị tên người dùng + nút đăng xuất -->
+
         </div>
+
       </div>
       <!-- toggle switch for light and dark theme -->
       <div class="mobile-position">
@@ -100,6 +105,10 @@
           </div>
         </nav>
       </div>
+    </div>
+    <div th:if="${#authorization.expression('isAuthenticated()')}">
+      <span class="hidden-xs" th:text="${#authentication.name}"></span>
+      <a class="nav-link" th:href="@{/logout}">Đăng xuất</a>
     </div>
   </nav>
 </header>

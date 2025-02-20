@@ -9,6 +9,7 @@ import stu.edu.vn.cinema_web.entity.User;
 import stu.edu.vn.cinema_web.repository.UserRepository;
 import stu.edu.vn.cinema_web.service.EmailService;
 import stu.edu.vn.cinema_web.service.OTPService;
+import stu.edu.vn.cinema_web.service.UserService;
 import stu.edu.vn.cinema_web.utils.JwtUtil;
 
 import jakarta.mail.MessagingException;
@@ -22,7 +23,7 @@ import java.util.Optional;
 public class EmailController {
 
     @Autowired
-    private UserRepository userRepository;
+    private UserService userService;
 
     @Autowired
     private EmailService emailService;
@@ -38,7 +39,7 @@ public class EmailController {
     @PostMapping("/send-otp")
     @ResponseBody
     public String sendOtp(@RequestParam String email) {
-        if (userRepository.findByEmail(email).isPresent()) {
+        if (userService.findByEmail(email) != null) {
             return "Email đã tồn tại!";
         }
 
@@ -50,59 +51,39 @@ public class EmailController {
     @ResponseBody
     public ResponseEntity<Map<String, String>> register(
             @RequestParam String email,
+            @RequestParam String username,
             @RequestParam String password,
             @RequestParam String otp) {
 
         Map<String, String> response = new HashMap<>();
 
-        // Kiểm tra OTP
         if (!otpService.verifyOtp(email, otp)) {
             response.put("status", "error");
             response.put("message", "Mã OTP không hợp lệ!");
             return ResponseEntity.badRequest().body(response);
         }
 
-        // Kiểm tra email đã tồn tại
-        if (userRepository.findByEmail(email).isPresent()) {
+        if (userService.findByEmail(email) != null) {
             response.put("status", "error");
             response.put("message", "Email đã tồn tại!");
             return ResponseEntity.badRequest().body(response);
         }
 
-        // Tạo tài khoản
         User user = new User();
+        user.setUsername(username);
         user.setEmail(email);
         user.setPassword(passwordEncoder.encode(password));
         user.setVerified(true);
-        userRepository.save(user);
+        userService.createUser(user);
 
-        otpService.removeTemporaryUser(email); // Xóa OTP sau khi đăng ký
+        otpService.removeTemporaryUser(email);
 
         response.put("status", "success");
         response.put("message", "Đăng ký thành công! Bạn có thể đăng nhập.");
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/login")
-    public String showLoginForm() {
-        return "home/login";
-    }
 
-    @PostMapping("/login")
-    public String login(@RequestParam String email, @RequestParam String password) {
-        Optional<User> userOptional = userRepository.findByEmail(email);
-
-        if (userOptional.isPresent()) {
-            User user = userOptional.get();
-            if (!user.isVerified()) {
-                return "redirect:/auth/login?error=unverified"; // Chuyển hướng về trang login kèm lỗi
-            }
-            if (passwordEncoder.matches(password, user.getPassword())) {
-                return "redirect:/home"; // Nếu đúng, chuyển về index.html
-            }
-        }
-        return "redirect:/auth/login?error=invalid"; // Lỗi email hoặc mật khẩu
-    }
 
 
 }
