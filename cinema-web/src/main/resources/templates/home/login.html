@@ -23,8 +23,40 @@
   .otp-container input {
       flex: 1;
   }
+ .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+  }
 
-</style>
+  .modal-content {
+      background-color: #fff;
+      margin: 15% auto;
+      padding: 20px;
+      border-radius: 8px;
+      width: 40%;
+      text-align: center;
+  }
+
+  .close {
+      color: red;
+      float: right;
+      font-size: 24px;
+      font-weight: bold;
+      cursor: pointer;
+  }
+    .error-message {
+    color: red;
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+  </style>
 
 <body>
 <header id="site-header" class="w3l-header fixed-top">
@@ -69,7 +101,12 @@
       </div>
       <input id="signup-password" name="sign-up-passwd" type="password" placeholder="Password" required />
       <button type="submit">Sign Up</button>
-
+      <div id="notificationModal" class="modal">
+        <div class="modal-content">
+          <span class="close" onclick="closeModal()">&times;</span>
+          <p id="modal-message"></p>
+        </div>
+      </div>
     </form>
   </div>
   <div class="form-container sign-in-container">
@@ -84,8 +121,13 @@
       <span>or use your account</span>
       <input id="login-email" name="username" type="email" placeholder="Email" required />
       <input id="login-password" name="password" type="password" placeholder="Password" required />
+      <p id="login-error" th:if="${param.error}" class="error-message" style="color: red;">
+        Tài khoản hoặc mật khẩu không chính xác!
+      </p>
+
       <a href="#">Forgot your password?</a>
       <button type="submit">Sign In</button>
+
     </form>
   </div>
   <div class="overlay-container">
@@ -104,10 +146,6 @@
   </div>
 </div>
 
-<script type="text/javascript" th:src="@{/assets/js/as-alert-message.min.js}"></script>
-<script th:src="@{/assets/js/jquery-3.3.1.min.js}"></script>
-<!--/theme-change-->
-<script th:src="@{/assets/js/theme-change.js}"></script>
 <!-- disable body scroll which navbar is in active -->
 <script>
   $(function () {
@@ -148,62 +186,70 @@
 
 <script type="text/javascript"th:src="@{/assets/js/sign-in.js}"></script>
 
+<script th:replace="fragment/script :: script"></script>
+
 <script>
-  // 📨 Gửi OTP qua AJAX
-  // 📨 Gửi OTP
-  function sendOtp() {
-    let emailInput = document.getElementById("signup-email");
-    if (!emailInput || !emailInput.value) {
-      alert("Vui lòng nhập email trước khi gửi OTP!");
-      return;
-    }
+  function showModal(message) {
+     let modal = document.getElementById("notificationModal");
+     let messageElement = document.getElementById("modal-message");
 
-    fetch('/auth/send-otp', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: new URLSearchParams({ email: emailInput.value })
-    })
-            .then(response => response.text())
-            .then(data => alert(data))
-            .catch(error => console.error('Lỗi:', error));
-  }
+     messageElement.textContent = message;
+     modal.style.display = "block";
+ }
 
-  // 📝 Đăng ký tài khoản + xác thực OTP
-  function registerUser(event) {
-    event.preventDefault();
+ function closeModal() {
+     document.getElementById("notificationModal").style.display = "none";
+ }
 
-    let email = document.querySelector("input[name='sign-up-email']").value;
-    let username = document.querySelector("input[name='username']").value;
-    let password = document.querySelector("input[name='sign-up-passwd']").value;
-    let otp = document.querySelector("input[name='otp']").value;
+ // 📨 Gửi OTP
+ function sendOtp() {
+     let emailInput = document.getElementById("signup-email");
+     if (!emailInput || !emailInput.value) {
+         showModal("Vui lòng nhập email trước khi gửi OTP!");
+         return;
+     }
 
-    if (!otp) {
-      alert("Vui lòng nhập mã OTP trước khi đăng ký!");
-      return;
-    }
+     fetch('/auth/send-otp', {
+         method: 'POST',
+         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+         body: new URLSearchParams({ email: emailInput.value })
+     })
+     .then(response => response.text())
+     .then(data => showModal(data))
+     .catch(error => console.error('Lỗi:', error));
+ }
 
-    fetch('/auth/register', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: new URLSearchParams({ email,username, password, otp })
-    })
-            .then(response => {
-              // Kiểm tra nếu phản hồi không phải JSON
-              if (!response.headers.get("content-type")?.includes("application/json")) {
-                throw new Error("Server trả về HTML thay vì JSON");
-              }
-              return response.json();
-            })
-            .then(data => {
-              alert(data.message);
-              if (data.status === "success") {
-                window.location.href = "/auth/login"; // Chuyển hướng sau khi đăng ký thành công
-              }
-            })
-            .catch(error => {
-              console.error('Lỗi:', error);
-              alert("Có lỗi xảy ra! Vui lòng thử lại.");
-            });
-  }
+ // 📝 Đăng ký tài khoản + xác thực OTP
+ function registerUser(event) {
+     event.preventDefault();
+
+     let email = document.querySelector("input[name='sign-up-email']").value;
+     let username = document.querySelector("input[name='username']").value;
+     let password = document.querySelector("input[name='sign-up-passwd']").value;
+     let otp = document.querySelector("input[name='otp']").value;
+
+     if (!otp) {
+         showModal("Vui lòng nhập mã OTP trước khi đăng ký!");
+         return;
+     }
+
+     fetch('/auth/register', {
+         method: 'POST',
+         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+         body: new URLSearchParams({ email, username, password, otp })
+     })
+     .then(response => response.json())
+     .then(data => {
+         showModal(data.message);
+         if (data.status === "success") {
+             setTimeout(() => { window.location.href = "/auth/login"; }, 2000);
+         }
+     })
+     .catch(error => {
+         console.error('Lỗi:', error);
+         showModal("Có lỗi xảy ra! Vui lòng thử lại.");
+     });
+ }
+
 </script>
 </body>

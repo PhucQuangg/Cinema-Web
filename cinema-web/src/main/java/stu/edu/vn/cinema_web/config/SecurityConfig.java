@@ -35,6 +35,7 @@ public class SecurityConfig {
                         .usernameParameter("username")
                         .passwordParameter("password")
                         .defaultSuccessUrl("/home", true)
+                        .failureUrl("/login?error=true")
                         .permitAll() // Cho phép tất cả truy cập vào trang đăng nhập
                 )
                 .logout(logout -> logout
