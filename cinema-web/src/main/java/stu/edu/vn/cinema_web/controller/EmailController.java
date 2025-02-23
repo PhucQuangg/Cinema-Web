@@ -6,17 +6,13 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import stu.edu.vn.cinema_web.entity.User;
-import stu.edu.vn.cinema_web.repository.UserRepository;
-import stu.edu.vn.cinema_web.service.EmailService;
-import stu.edu.vn.cinema_web.service.OTPService;
-import stu.edu.vn.cinema_web.service.UserService;
+import stu.edu.vn.cinema_web.service.email.EmailService;
+import stu.edu.vn.cinema_web.service.email.OTPService;
+import stu.edu.vn.cinema_web.service.user.UserService;
 import stu.edu.vn.cinema_web.utils.JwtUtil;
-
-import jakarta.mail.MessagingException;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
 
 @Controller
 @RequestMapping("/auth")

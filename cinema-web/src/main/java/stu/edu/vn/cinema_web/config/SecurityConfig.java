@@ -8,7 +8,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import stu.edu.vn.cinema_web.service.CustomUserDetailService;
+import stu.edu.vn.cinema_web.service.user.CustomUserDetailService;
 
 @Configuration
 @EnableWebSecurity
@@ -50,6 +50,7 @@ public class SecurityConfig {
     @Bean
     WebSecurityCustomizer webSecurityCustomizer() {
         return web -> web.ignoring()
-                .requestMatchers("/static/**", "/assets/**","/screenshots/**", "/seat_selection/**");
+                .requestMatchers("/static/**", "/assets/**", "/images/**", "/screenshots/**", "/seat_selection/**");// Bỏ chặn API movies
     }
+
 }

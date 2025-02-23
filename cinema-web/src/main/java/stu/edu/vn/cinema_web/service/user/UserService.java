@@ -1,4 +1,4 @@
-package stu.edu.vn.cinema_web.service;
+package stu.edu.vn.cinema_web.service.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

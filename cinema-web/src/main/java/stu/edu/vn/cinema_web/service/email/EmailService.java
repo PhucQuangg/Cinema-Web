@@ -1,4 +1,4 @@
-package stu.edu.vn.cinema_web.service;
+package stu.edu.vn.cinema_web.service.email;
 
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;

@@ -1,4 +1,4 @@
-package stu.edu.vn.cinema_web.service;
+package stu.edu.vn.cinema_web.service.email;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
