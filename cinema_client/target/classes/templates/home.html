@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head lang="vi" th:include="fragments/head :: head"/>
+
+
+<body data-new-gr-c-s-check-loaded="14.1073.0" data-gr-ext-installed=""><noscript>You need to enable JavaScript to run
+        this app.</noscript>
+    <div id="root">
+    	<header lang="vi" th:include="fragments/header :: header"/>
+        <div class="hotMovie">
+            <div class="hotMovie__content">
+                <div class="owl-carousel myHotMovieCarousel owl-carousel owl-theme owl-loaded owl-drag">
+                    <div class="owl-stage-outer">
+                        <div class="owl-stage"
+                            style="transform: translate3d(-5076px, 0px, 0px); transition: all 0.25s ease 0s; width: 11844px;">
+
+ 
+                            <div class="owl-item" style="width: 1692px;">
+                                <div class="item">
+                                    <div class="item__img"><img class="img-fluid" style="height: 500px"
+                                            src="https://cdn-media.sforum.vn/storage/app/media/quynh/phim-conan-chieu-rap-12.jpg"
+                                            alt="phim soi">
+                                        <div class="background__overlay"><i class="fa fa-play carousel__button"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="owl-item active" style="width: 1692px;">
+                                <div class="item">
+                                    <div class="item__img"><img class="img-fluid" style="height: 500px"
+                                            src="https://maac.edu.vn/wp-content/uploads/2024/02/2-phim-hoat-hinh-2024-1200x675.jpg"
+                                            alt="hinh anh phim">
+                                        <div class="background__overlay"><i class="fa fa-play carousel__button"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="owl-item" style="width: 1692px;">
+                                <div class="item">
+                                    <div class="item__img"><img class="img-fluid" style="height: 500px"
+                                            src="https://maac.edu.vn/wp-content/uploads/2024/02/9-phim-hoat-hinh-2024.jpg"
+                                            alt="va phim cua hinh anh">
+                                        <div class="background__overlay"><i class="fa fa-play carousel__button"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="listMovie" class="listMovie">
+            <div class="container">
+                <div id="listMovieTab">
+                    <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                        <li class="nav-item"><a class="nav-link active" id="pills-home-tab" data-toggle="pill"
+                                href="#pills-dangchieu" role="tab" aria-controls="pills-home" aria-selected="true">Đang
+                                Chiếu</a></li>
+                        <li class="nav-item"><a class="nav-link" id="pills-profile-tab" data-toggle="pill"
+                                href="#pills-sapchieu" role="tab" aria-controls="pills-profile"
+                                aria-selected="false">Sắp Chiếu</a></li>
+                    </ul>
+                    <div class="tab-content" id="pills-tabContent">
+                        <div class="tab-pane fade show active" id="pills-dangchieu" role="tabpanel"
+                            aria-labelledby="pills-home-tab">
+                        <div class="swiper">
+                                <div class="swiper-button-prev"></div>
+                                <div class="swiper-button-next"></div>
+                               	<div class="swiper-wrapper">
+	                                <div class="swiper-slide" th:each="movie: ${showingMovies}" th:object="${movie}"
+									    style="width: 240px; z-index: -4;">
+									    <div class="item__movie">
+									        <div class="item__link">
+									            <div class="item__img" >
+									            	<img th:src="*{smallImageURl}" th:alt="*{smallImageURl}"/>
+									                <div class="overlay">
+									                    <div class="play__button" style="cursor: pointer;"><i
+									                            class="fa fa-play play__icon"></i></div>
+									                </div><span class="film__age age--C">GP09</span><span
+									                    class="film__audit">
+									                    <p class="film__point">8</p><i
+									                        class="fa fa-star film__star"></i><i
+									                        class="fa fa-star film__star"></i><i
+									                        class="fa fa-star film__star"></i><i
+									                        class="fa fa-star film__star"></i>
+									                </span>
+									            </div>
+									            <div class="item__info">
+									                <p class="film__name" th:text="*{name}"></p>
+									                <span class="film__during" >2024</span>
+									                <div class="item__button"><a class="btn buyTicket__button"
+									                        th:href="@{/movies/detail(movieId=*{id})}">ĐẶT VÉ</a></div>
+									            </div>
+									        </div>
+									    </div>
+									</div>
+								</div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="pills-sapchieu" role="tabpanel"
+                            aria-labelledby="pills-profile-tab">
+                            <div
+                                class="swiper">
+                                <div class="swiper-button-prev"></div>
+                                <div class="swiper-button-next"></div>
+                               	<div class="swiper-wrapper">
+	                                <div class="swiper-slide" th:each="movie: ${comingMovies}" th:object="${movie}"
+									    style="width: 240px; z-index: -4;">
+									    <div class="item__movie">
+									        <div class="item__link">
+									            <div class="item__img" >
+									            	<img th:src="*{smallImageURl}" th:alt="*{smallImageURl}"/>
+									                <div class="overlay">
+									                    <div class="play__button" style="cursor: pointer;"><i
+									                            class="fa fa-play play__icon"></i></div>
+									                </div><span class="film__age age--C">GP09</span><span
+									                    class="film__audit">
+									                    <p class="film__point">8</p><i
+									                        class="fa fa-star film__star"></i><i
+									                        class="fa fa-star film__star"></i><i
+									                        class="fa fa-star film__star"></i><i
+									                        class="fa fa-star film__star"></i>
+									                </span>
+									            </div>
+									            <div class="item__info">
+									                <p class="film__name" th:text="*{name}"></p>
+									                <span class="film__during" >2024</span>
+									                <div class="item__button"><a class="btn buyTicket__button"
+									                        th:href="@{/movies/detail(movieId=*{id})}">ĐẶT VÉ</a></div>
+									            </div>
+									        </div>
+									    </div>
+									</div>
+								</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="animated fadeIn" style="animation-duration: 1s; opacity: 1;">
+            <section id="schedule" class="schedule container mx-auto">
+                <div class="schedule__content">
+                    <div class="container">
+                        <h1 class="schedule__title text-center mb-4">Lịch Chiếu                         
+                        <span class="schedule__title text-center mb-4">
+	                        	<select name="select-date" id="select-date">
+	                                <option th:each="startDate: ${allStartDate}" th:value="${startDate}" th:text="${startDate}"></option>
+	                            </select>
+                        </span></h1>
+
+                        <div class="schedule__row row bg-light">
+                            <div class="main__tabContent col-md-10 col-sm-12" style="max-width: 100%">
+								<div class="tab-content" id="v-pills-tabContent">
+								    <div class="tab-pane fade show active" id="BHDStar" role="tabpanel" aria-labelledby="v-pills-home-tab">
+								        <div class="secondary__row row">
+								            <div class="secondary__tab col-md-5 col-sm-12">
+								                <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+								                	<a th:each="branch : ${branches}" class="nav-link" data-toggle="pill" th:href="'#branch'+${branch.id}" role="tab" aria-controls="v-pills-home" aria-selected="true">
+								                        <div class="img__theater">
+								                        	<img th:src="${branch.imgURL}" alt="sdsd">
+								                        </div>
+								                        <div class="text__theater">
+								                        	<span class="name__theater">
+								                        		<span class="name__aftertheater" th:text="${branch.name}"></span>
+								                        	</span>
+								                            <p class="address__theater" th:text="${branch.diaChi}"></p>
+								                            <span class="detail__theater">[chi tiết]</span>
+								                        </div>
+								                    </a>
+								                  </div>
+								            </div>
+								            <div class="secondary__tabContent col-md-7 col-sm-12">
+								                <div class="tab-content" id="v-pills-tabContent">
+								                    <div th:each="branch : ${branches}" class="tab-pane fade"  
+								                    th:id="'branch'+${branch.id}" role="tabpanel" aria-labelledby="v-pills-home-tab">
+								                        <div class="tab__list" >
+								                            <ul>
+								                                <li class="film__item" th:each="movie: ${branch.movies}" data-length="0">
+								                                	<a class="film__link" data-toggle="collapse" th:href="'#brand'+${branch.id}+'-movie'+${movie.id}" role="button" aria-expanded="false" aria-controls="1322">
+								                                        <div class="row">
+								                                            <div class="film__img col-2"><img th:src="${movie.smallImageURl}" th:alt="${movie.smallImageURl}">
+								                                            </div>
+								                                            <div class="film__title col-10">
+								                                            	<span class="age--C">2D</span>
+								                                            	<span class="film__name" th:text="${movie.name}"></span>
+								                                                <p class="film__timming" th:text="${movie.duration}+'phút - ' +${movie.categories} "></p>
+								                                            </div>
+								                                        </div>
+								                                    </a>
+								                                    <div class="collapse" th:id="'brand'+${branch.id}+'-movie'+${movie.id}">
+								                                        <div class="collapse__content">
+								                                            <ul class="d-flex flex-wrap">
+								                                                <li  class="timeshow__item" th:each="schedule: ${movie.schedules}">
+								                                                	<a class="timeshow__link" th:href="@{'/booking/' + ${schedule.id}}">
+								                                                		<span class="time__begin" th:data-date="${#temporals.format(schedule.startDate, 'dd/MM/yyyy')}"
+								                                                		 th:text="${#temporals.format(schedule.startTime, 'HH:mm')}"></span>
+								                                                	</a>
+								                                                </li>
+								                                            </ul>
+								                                        </div>
+								                                    </div>
+								                                </li>
+								                                
+								                            </ul>
+								                        </div>
+								                    </div>
+								                </div>
+								            </div>
+								        </div>
+								    </div>
+								</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <div class="animated zoomIn" style="animation-duration: 1s; opacity: 1;">
+            <section id="news" class="news">
+                <div class="container">
+                    <div id="newsTab">
+                        <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                            <li class="nav-item"><a class="nav-link active" id="pills-24h-tab" data-toggle="pill"
+                                    href="#pills-24h" role="tab" aria-controls="pills-24h" aria-selected="true">Điện Ảnh
+                                    24h</a></li>
+                            <li class="nav-item"><a class="nav-link" id="pills-review-tab" data-toggle="pill"
+                                    href="#pills-review" role="tab" aria-controls="pills-review"
+                                    aria-selected="false">Review</a></li>
+                            <li class="nav-item"><a class="nav-link" id="pills-promotion-tab" data-toggle="pill"
+                                    href="#pills-promotion" role="tab" aria-controls="pills-promotion"
+                                    aria-selected="false">Khuyến Mãi</a></li>
+                        </ul>
+                        <div class="tab-content" id="pills-tabContent">
+                            <div class="tab-pane fade show active" id="pills-24h" role="tabpanel"
+                                aria-labelledby="pills-home-tab">
+                                <div class="tab__content">
+                                    <div class="card-content row">
+                                        <div class="example-1 card">
+                                            <div class="wrapper">
+                                                <div class="datepost"><span class="daypost">01</span><span
+                                                        class="monthpost">Tháng 7</span><span
+                                                        class="yearpost">2023</span></div>
+                                                <div class="datanews">
+                                                    <div class="contentnews"><span class="authornews">Anh Phong</span>
+                                                        <h1 class="titlenews"><a class="title__link" href="/#">Một thành
+                                                                viên của Avengers sẽ "biến chất"?</a></h1>
+                                                        <p class="text-description">Marvel Studios đang ủ ý tưởng cho
+                                                            quân mình đánh quân ta, khi dự định biến một thành viên cao
+                                                            cấp của nhóm Avengers trở thành phản diện...</p><label
+                                                            for="show-menu" class="menu-button"><span></span></label>
+                                                    </div><input type="checkbox" id="show-menu">
+                                                    <ul class="menu-content">
+                                                        <li class="menu-content-item"><a class="item__link" href="/#"><i
+                                                                    class="fa fa-tag"></i></a></li>
+                                                        <li class="menu-content-item"><a href="/#"
+                                                                class="item__link fa fa-heart"><span
+                                                                    class="item-data">47</span></a></li>
+                                                        <li class="menu-content-item"><a href="/#"
+                                                                class="item__link fa fa-comment"><span
+                                                                    class="item-data">8</span></a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="example-2 card">
+                                            <div class="wrapper">
+                                                <div class="header-post">
+                                                    <div class="datepost"><span class="daypost">26 </span><span
+                                                            class="monthpost">Tháng 6 </span><span
+                                                            class="yearpost">2025</span></div>
+                                                    <ul class="menu-content">
+                                                        <li class="menu-content-item"><a href="/#" class="item__link"><i
+                                                                    class="fa fa-bookmark"></i></a></li>
+                                                        <li class="menu-content-item"><a href="/#"
+                                                                class="item__link fa fa-heart"><span
+                                                                    class="item-data">18</span></a></li>
+                                                        <li class="menu-content-item"><a href="/#"
+                                                                class="item__link fa fa-comment"><span
+                                                                    class="item-data">3</span></a></li>
+                                                    </ul>
+                                                </div>
+                                                <div class="datanews">
+                                                    <div class="contentnews"><span class="authornews">Paul Pogba</span>
+                                                        <h1 class="titlenews"><a class="title__link" href="/#">Stranger
+                                                                Things: The sound of the Upside Down</a></h1>
+                                                        <p class="text-description">The antsy bingers of Netflix will
+                                                            eagerly anticipate the digital release of the Survive
+                                                            soundtrack, out today.</p><a href="/#"
+                                                            class="button-watch">Xem thêm</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="readMore"><button class="btn btn__readmore">XEM THÊM</button></div>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="pills-review" role="tabpanel"
+                                aria-labelledby="pills-review-tab">
+                                <div class="tab__content">
+                                    <div class="row__above row">
+                                        <div class="row__item col-md-6 col-sm-12">
+                                            <div class="item__img"><a href="/#"><img class="img-fluid"
+                                                        src="https://ss-images.saostar.vn/w700/2020/04/20/7370583/u3.jpg"
+                                                        alt="hinhanhstorm"></a></div>
+                                            <div class="item__text"><a class="item__title" href="/#">[Review]
+                                                    Stormbreaker và Mjolnir: Loại vũ khí nào của Thor mạnh hơn?</a>
+                                                <p class="item__description">Tác phẩm mới nhất của Marvel tiếp tục là
+                                                    câu chuyện hài hước và cảm xúc về tình cảm gia đình.</p>
+                                            </div>
+                                            <div class="item__icon">
+                                                <div class="icon__social d-inline"><i class="fa fa-thumbs-up"></i><span
+                                                        class="count__number">2</span></div>
+                                                <div class="icon__social d-inline"><i
+                                                        class="fa fa-comment-alt"></i><span
+                                                        class="count__number">0</span></div>
+                                            </div>
+                                        </div>
+                                        <div class="row__item col-md-6 col-sm-12">
+                                            <div class="item__img"><a href="/#"><img class="img-fluid"
+                                                        src="https://tintuc-divineshop.cdn.vccloud.vn/wp-content/uploads/2022/03/review-phim-the-invisible-man-tac-pham-kinh-dicca3-tucc89-te-hiem-hoi-dau-2020_623801f44d3c8.jpeg"
+                                                        alt="hinhansds"></a></div>
+                                            <div class="item__text"><a class="item__title" href="/#">[Review] Kẻ Vô Hình
+                                                    - Còn gì đáng sợ hơn kẻ giết người bệnh hoạn vô hình?</a>
+                                                <p class="item__description">Phiên bản hiện đại của The Invisible Man là
+                                                    một trong những phim kinh dị xuất sắc nhất năm nay.</p>
+                                            </div>
+                                            <div class="item__icon">
+                                                <div class="icon__social d-inline"><i class="fa fa-thumbs-up"></i><span
+                                                        class="count__number">0</span></div>
+                                                <div class="icon__social d-inline"><i
+                                                        class="fa fa-comment-alt"></i><span
+                                                        class="count__number">1</span></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row__below row">
+                                        <div class="row__left col-md-8">
+                                            <div class="left__below row">
+                                                <div class="left__item col-6">
+                                                    <div class="item__img"><img class="img-fluid"
+                                                            src="https://i.ytimg.com/vi/zhBgewy-PBg/maxresdefault.jpg"
+                                                            alt="hinhansdsddh"></div>
+                                                    <div class="item__text"><a class="item__title" href="/#">[Review]
+                                                            Cậu Bé Ma 2 - Bạn trai của 'bé Beo' là đây chứ đâu xa</a>
+                                                        <p class="item__description">Brahms: The Boy II có những màn hù
+                                                            dọa ấn tượng nhưng cái kết lại không tương xứng với phần mở
+                                                            đầu hứa hẹn.</p>
+                                                    </div>
+                                                    <div class="item__icon">
+                                                        <div class="icon__social d-inline"><i
+                                                                class="fa fa-thumbs-up"></i><span
+                                                                class="count__number">5</span></div>
+                                                        <div class="icon__social d-inline"><i
+                                                                class="fa fa-comment-alt"></i><span
+                                                                class="count__number">1</span></div>
+                                                    </div>
+                                                </div>
+                                                <div class="left__item col-6">
+                                                    <div class="item__img"><img class="img-fluid"
+                                                            src="https://assets2.htv.com.vn/Images/TAP%20CHI%20HTV/HAU%20TRUONG%20TRUYEN%20HINH/DUONG%202/SONIC%20SA/NS%20Thumbnail.jpg"
+                                                            alt="hinhaa212anh"></div>
+                                                    <div class="item__text"><a class="item__title" href="/#">[Review]
+                                                            Nhím Sonic - Cười thả ga cùng chàng nhím siêu thanh lầy
+                                                            lội</a>
+                                                        <p class="item__description">Nhờ tiếp thu ý kiến của fan mà Nhím
+                                                            Sonic đã trở thành một trong những bộ phim chuyển thể từ trò
+                                                            chơi điện tử xuất sắc nhất.</p>
+                                                    </div>
+                                                    <div class="item__icon">
+                                                        <div class="icon__social d-inline"><i
+                                                                class="fa fa-thumbs-up"></i><span
+                                                                class="count__number">1</span></div>
+                                                        <div class="icon__social d-inline"><i
+                                                                class="fa fa-comment-alt"></i><span
+                                                                class="count__number">1</span></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row__right col-md-4 col-sm-12">
+                                            <ul>
+                                                <li class="right__item"><a class="item__link" href="/#">
+                                                        <div class="item__img"><img
+                                                                src="https://i.ytimg.com/vi/i7kZe2ggZF4/maxresdefault.jpg"
+                                                                alt="ad223"></div>
+                                                        <div class="item__title">[Review] Tháng Năm Hạnh Phúc Ta Từng Có
+                                                            - Buông bỏ chưa bao giờ là việc dễ dàng</div>
+                                                    </a></li>
+                                                <li class="right__item"><a class="item__link" href="/#">
+                                                        <div class="item__img"><img
+                                                                src="https://iguov8nhvyobj.vcdn.cloud/media/catalog/product/cache/1/image/1800x/71252117777b696995f01934522c402d/p/o/poster_payoff_-_social.jpg"
+                                                                alt="hinhanh"></div>
+                                                        <div class="item__title">[Review] Sắc Đẹp Dối Trá - Hương Giang
+                                                            kể chuyện đời mình qua phim ảnh</div>
+                                                    </a></li>
+                                                <li class="right__item"><a class="item__link" href="/#">
+                                                        <div class="item__img"><img
+                                                                src="https://upload.wikimedia.org/wikipedia/vi/a/a3/Birds_of_prey_ap_phich.jpg"
+                                                                alt="gai-gia-lam-chieu"></div>
+                                                        <div class="item__title">[Review] Birds of Prey - Màn lột xác
+                                                            hoành tráng của Harley Quinn và DC</div>
+                                                    </a></li>
+                                                <li class="right__item"><a class="item__link" href="/#">
+                                                        <div class="item__img"><img
+                                                                src="https://themillennials.life/wp-content/uploads/2020/11/bi-mat-cua-gio-3.jpg"
+                                                                alt="30chualatet"></div>
+                                                        <div class="item__title">[Review] Bí Mật Của Gió - Câu chuyện
+                                                            “tình người duyên ma” đầy nước mắt</div>
+                                                    </a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="readMore"><button class="btn btn__readmore">XEM THÊM</button></div>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="pills-promotion" role="tabpanel"
+                                aria-labelledby="pills-promotion-tab">
+                                <div class="tab__content">
+                                    <div class="row__above row">
+                                        <div class="row__item col-md-6 col-sm-12">
+                                            <div class="item__img"><a href="/#"><img class="img-fluid"
+                                                        src="https://simg.zalopay.com.vn/zlp-website/assets/Ve_Phim_84k_2_1_moi_70ac9c8d1d.png"
+                                                        alt="bhdkhuyenami"></a></div>
+                                            <div class="item__text">
+                                                <a class="item__title" href="/#">Sở hữu vé CGV chỉ 84.000đ với Đặt Vé Phim</a>
+                                                <p class="item__description">Đặt Vé Phim rạp CGV với giá ưu đãi 84.000đ ngay trên ZaloPay! Tha hồ xem phim mà không lo cháy túi!!</p>
+                                            </div>
+                                            <div class="item__icon">
+                                                <div class="icon__social d-inline"><i class="fa fa-thumbs-up"></i><span
+                                                        class="count__number">2</span></div>
+                                                <div class="icon__social d-inline"><i
+                                                        class="fa fa-comment-alt"></i><span
+                                                        class="count__number">0</span></div>
+                                            </div>
+                                        </div>
+                                        <div class="row__item col-md-6 col-sm-12">
+                                            <div class="item__img"><a href="/#"><img class="img-fluid"
+                                                        src="https://simg.zalopay.com.vn/zlp-website/assets/ZLP_CGVQ_2_720x360_s_0c83151ba2.png"
+                                                        alt="bhdstarthay"></a></div>
+                                            <div class="item__text">
+                                                <a class="item__title" href="/#">Xem phim hay cuối tuần cùng CGV x ZaloPay!</a>
+                                                <p class="item__description">[ĐẶT VÉ PHIM – CGV] ZaloPay Mùa Nào Cũng Khao cho cặp đôi “over hợp”</p>
+                                            </div>
+                                            <div class="item__icon">
+                                                <div class="icon__social d-inline"><i class="fa fa-thumbs-up"></i><span
+                                                        class="count__number">0</span></div>
+                                                <div class="icon__social d-inline"><i
+                                                        class="fa fa-comment-alt"></i><span
+                                                        class="count__number">1</span></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row__below row">
+                                        <div class="row__left col-md-8">
+                                            <div class="left__below row">
+                                                <div class="left__item col-6">
+                                                    <div class="item__img"><img class="img-fluid"
+                                                            src="https://simg.zalopay.com.vn/zlp-website/assets/thumb_bhd_min_1_c41adfb24f.jpg"
+                                                            alt="212grapb"></div>
+                                                    <div class="item__text"><a class="item__title" href="/#">Chào bạn
+                                                            mới - BHD Star Mua 2 Tính Tiền 1</a>
+                                                        <p class="item__description">Ưu đãi cực chất: Mua 2 vé BHD Star
+                                                            chỉ cần trả tiền 1 vé khi thanh toán qua ZaloPay.</p>
+                                                    </div>
+                                                    <div class="item__icon">
+                                                        <div class="icon__social d-inline"><i
+                                                                class="fa fa-thumbs-up"></i><span
+                                                                class="count__number">5</span></div>
+                                                        <div class="icon__social d-inline"><i
+                                                                class="fa fa-comment-alt"></i><span
+                                                                class="count__number">1</span></div>
+                                                    </div>
+                                                </div>
+                                                <div class="left__item col-6">
+                                                    <div class="item__img"><img class="img-fluid"
+                                                            src="https://simg.zalopay.com.vn/zlp-website/assets/z4412096077491_08a513c2c2e1a021ae706e43df743c17_4477d54327.jpg"
+                                                            alt="zaloshs"></div>
+                                                    <div class="item__text"><a class="item__title" href="/#">CGV GIẢM 50.000Đ CHO BẠN MỚI</a>
+                                                        <p class="item__description">Nhân dịp hè về, đón bom tấn cùng CGV với ưu đãi 50.000đ./p>
+                                                    </div>
+                                                    <div class="item__icon">
+                                                        <div class="icon__social d-inline"><i
+                                                                class="fa fa-thumbs-up"></i><span
+                                                                class="count__number">1</span></div>
+                                                        <div class="icon__social d-inline"><i
+                                                                class="fa fa-comment-alt"></i><span
+                                                                class="count__number">1</span></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row__right col-md-4 col-sm-12">
+                                            <ul>
+                                                <li class="right__item"><a class="item__link" href="/#">
+                                                        <div class="item__img"><img
+                                                                src="https://iguov8nhvyobj.vcdn.cloud/media/wysiwyg/2019/APR19/Content_New_Offer_Web_79K_486x688_28.jpg"
+                                                                alt="galaxys2"></div>
+                                                        <div class="item__title">CGV – 79.000Đ/vé cuối tuần khi thanh
+                                                            toán bằng ZaloPay!</div>
+                                                    </a></li>
+                                                <li class="right__item"><a class="item__link" href="/#">
+                                                        <div class="item__img"><img
+                                                                src="data:image/jpeg;base64,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"
+                                                                alt="ddcs22"></div>
+                                                        <div class="item__title">[123Phim] Thứ 6 Không Đen Tối - Ưu đãi
+                                                            huỷ diệt 11k/vé Anh Trai Yêu Quái</div>
+                                                    </a></li>
+                                                <li class="right__item"><a class="item__link" href="/#">
+                                                        <div class="item__img"><img
+                                                                src="https://stc.shopiness.vn/deal/2019/11/08/8/a/7/e/1573187804020_540.png"
+                                                                alt="ddc-morgana"></div>
+                                                        <div class="item__title">[123Phim] NHẬP MÃ 'PSM30K' - Giảm ngay
+                                                            30k khi đặt vé Pháp Sư Mù: Ai Chết Giơ Tay</div>
+                                                    </a></li>
+                                                <li class="right__item"><a class="item__link" href="/#">
+                                                        <div class="item__img"><img
+                                                                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRI6LbFCBgJCUmKiiBJcAV3YM9W1w1XLdRl-g&sg"
+                                                                alt="hinhgido"></div>
+                                                        <div class="item__title">[Mega GS] Âm Dương Lộ
+                                                        </div>
+                                                    </a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="readMore"><button class="btn btn__readmore">XEM THÊM</button></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <section id="forMobile" class="forMobile background__homeapp">
+            <div class="container">
+                <div class="forMobile__content">
+                    <div class="row">
+                        <div class="forMobile__left col-md-6 col-sm-12">
+                            <div class="animated" style="animation-duration: 1s; opacity: 0;">
+                                <p class="text__app">Ứng dụng tiện lợi dành cho người yêu điện ảnh</p>
+                                <p class="text__description">Không chỉ đặt vé, bạn còn có thể bình luận phim, chấm điểm
+                                    rạp và đổi quà hấp dẫn.</p><button class="btn__app">App miễn phí - Tải về
+                                    ngay</button>
+                                <p class="text__appversion">Đã có hai phiên bản<a class="appforos__link" href="/#">
+                                        iOS</a> &amp; <a class="appforos__link" href="/#">Android</a></p>
+                            </div>
+                        </div>
+                        <div class="forMobile__right col-md-6 col-sm-12">
+                            <div class="animated" style="animation-duration: 1s; opacity: 0;">
+                                <div class="mobile__frame"><img class="img-fluid"
+                                        src="https://i.ibb.co/smKg7xh/mobile.png" alt="hinhanh">
+                                    <div class="owl-carousel mobileCarousel owl-carousel owl-theme owl-loaded owl-drag">
+                                        <div class="owl-stage-outer">
+                                            <div class="owl-stage"
+                                                style="transform: translate3d(-1500px, 0px, 0px); transition: all 0.25s ease 0s; width: 4800px;">
+                                                <div class="owl-item cloned" style="width: 300px;">
+                                                    <div class="item"><img class="img-fluid"
+                                                            src="https://tix.vn/app/assets/img/icons/slide/slide13.jpg"
+                                                            alt="hinhanh"></div>
+                                                </div>
+                                                <div class="owl-item cloned" style="width: 300px;">
+                                                    <div class="item"><img class="img-fluid"
+                                                            src="https://tix.vn/app/assets/img/icons/slide/slide14.jpg"
+                                                            alt="hinhanh"></div>
+                                                </div>
+                                                <div class="owl-item cloned" style="width: 300px;">
+                                                    <div class="item"><img class="img-fluid"
+                                                            src="https://tix.vn/app/assets/img/icons/slide/slide16.jpg"
+                                                            alt="hinhanh"></div>
+                                                </div>
+                                                <div class="owl-item cloned" style="width: 300px;">
+                                                    <div class="item"><img class="img-fluid"
+                                                            src="https://tix.vn/app/assets/img/icons/slide/slide3.jpg"
+                                                            alt="hinhanh"></div>
+                                                </div>
+                                                <div class="owl-item" style="width: 300px;">
+                                                    <div class="item"><img class="img-fluid"
+                                                            src="https://tix.vn/app/assets/img/icons/slide/slide4.jpg"
+                                                            alt="hinhanh"></div>
+                                                </div>
+                                                <div class="owl-item active" style="width: 300px;">
+                                                    <div class="item"><img class="img-fluid"
+                                                            src="https://tix.vn/app/assets/img/icons/slide/slide5.jpg"
+                                                            alt="hinhanh"></div>
+                                                </div>
+                                                <div class="owl-item" style="width: 300px;">
+                                                    <div class="item"><img class="img-fluid"
+                                                            src="https://tix.vn/app/assets/img/icons/slide/slide8.jpg"
+                                                            alt="hinhanh"></div>
+                                                </div>
+                                                <div class="owl-item" style="width: 300px;">
+                                                    <div class="item"><img class="img-fluid"
+                                                            src="https://tix.vn/app/assets/img/icons/slide/slide10.jpg"
+                                                            alt="hinhanh"></div>
+                                                </div>
+                                                <div class="owl-item" style="width: 300px;">
+                                                    <div class="item"><img class="img-fluid"
+                                                            src="https://tix.vn/app/assets/img/icons/slide/slide13.jpg"
+                                                            alt="hinhanh"></div>
+                                                </div>
+                                                <div class="owl-item" style="width: 300px;">
+                                                    <div class="item"><img class="img-fluid"
+                                                            src="https://tix.vn/app/assets/img/icons/slide/slide14.jpg"
+                                                            alt="hinhanh"></div>
+                                                </div>
+                                                <div class="owl-item" style="width: 300px;">
+                                                    <div class="item"><img class="img-fluid"
+                                                            src="https://tix.vn/app/assets/img/icons/slide/slide16.jpg"
+                                                            alt="hinhanh"></div>
+                                                </div>
+                                                <div class="owl-item" style="width: 300px;">
+                                                    <div class="item"><img class="img-fluid"
+                                                            src="https://tix.vn/app/assets/img/icons/slide/slide3.jpg"
+                                                            alt="hinhanh"></div>
+                                                </div>
+                                                <div class="owl-item cloned" style="width: 300px;">
+                                                    <div class="item"><img class="img-fluid"
+                                                            src="https://tix.vn/app/assets/img/icons/slide/slide4.jpg"
+                                                            alt="hinhanh"></div>
+                                                </div>
+                                                <div class="owl-item cloned" style="width: 300px;">
+                                                    <div class="item"><img class="img-fluid"
+                                                            src="https://tix.vn/app/assets/img/icons/slide/slide5.jpg"
+                                                            alt="hinhanh"></div>
+                                                </div>
+                                                <div class="owl-item cloned" style="width: 300px;">
+                                                    <div class="item"><img class="img-fluid"
+                                                            src="https://tix.vn/app/assets/img/icons/slide/slide8.jpg"
+                                                            alt="hinhanh"></div>
+                                                </div>
+                                                <div class="owl-item cloned" style="width: 300px;">
+                                                    <div class="item"><img class="img-fluid"
+                                                            src="https://tix.vn/app/assets/img/icons/slide/slide10.jpg"
+                                                            alt="hinhanh"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="owl-nav disabled"><button type="button" role="presentation"
+                                                class="owl-prev"><span aria-label="Previous">‹</span></button><button
+                                                type="button" role="presentation" class="owl-next"><span
+                                                    aria-label="Next">›</span></button></div>
+                                        <div class="owl-dots disabled"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    	<footer lang="vi" class="container" th:include="fragments/footer :: footer"></footer>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js" 
+	integrity="sha512-bPs7Ae6pVvhOSiIcyUClR7/q2OAsRiovw4vAkX+zJbw3ShAeeqezq50RIIcIURq7Oa20rW2n2q+fyXBNcU9lrw==" 
+	crossorigin="anonymous" ></script>
+    <script src="https://unpkg.com/bootstrap-table@1.16.0/dist/bootstrap-table.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/8.3.2/swiper-bundle.min.js" 
+    integrity="sha512-V1mUBtsuFY9SNr+ptlCQAlPkhsH0RGLcazvOCFt415od2Bf9/YkdjXxZCdhrP/TVYsPeAWuHa+KYLbjNbeEnWg==" 
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script type="text/javascript">
+	const swiper = new Swiper('.swiper', {
+	       slidesPerView: '5',
+	       spaceBetween: 0,
+	       autoplay: false,
+	       effect: 'coverflow',
+	       grabCursor: true,
+	       centeredSlidesBounds:true,
+	       slidesPerView: 'auto',
+	       coverflowEffect: {
+	           rotate: 30,
+	           stretch: 0,
+	           depth: 50,
+	           modifier: 1,
+	           slideShadows : true,
+	         },
+		  navigation: {
+		    nextEl: '.swiper-button-next',
+		    prevEl: '.swiper-button-prev',
+		  },
+		});
+    </script>
+    <script type="text/javascript">
+    
+	$(document).ready(function(){
+		
+		$('#v-pills-tabContent .nav-link').first().trigger('click');
+		function fillterSchedule(){
+			selectDate=$("#select-date").val()
+			$(".time__begin").each(function(){
+				if($(this).data("date")!=selectDate){
+					$(this).css("display","none");
+				}
+				else{
+					$(this).css("display","");
+					$(this).closest('.film__item').data('length',Number($(this).closest('.film__item').data('length'))+1)
+				}
+			})
+			$('.film__item').each(function(){
+				console.log($(this).data("length"))
+				if($(this).data("length")=='0') $(this).css("display","none");
+				else $(this).css("display","");
+			})
+		}
+		fillterSchedule();
+		$("#select-date").on("change",function(){
+			$('.film__item').each(function(){
+				$(this).data("length",0)
+			})
+			fillterSchedule();
+		})
+		$(".owl-carousel").owlCarousel({
+			    items:1,
+			    loop:true,
+			    margin:10,
+			    autoplay:true,
+			    autoplayTimeout:3000,
+			    autoplayHoverPause:true,
+			    nav:true
+			    
+			})
+		  });
+    </script>
+    <script>
+    !function (e) { function r(r) { for (var n, a, p = r[0], i = r[1], l = r[2], c = 0, s = []; c < p.length; c++)a = p[c], Object.prototype.hasOwnProperty.call(o, a) && o[a] && s.push(o[a][0]), o[a] = 0; for (n in i) Object.prototype.hasOwnProperty.call(i, n) && (e[n] = i[n]); for (f && f(r); s.length;)s.shift()(); return u.push.apply(u, l || []), t() } function t() { for (var e, r = 0; r < u.length; r++) { for (var t = u[r], n = !0, p = 1; p < t.length; p++) { var i = t[p]; 0 !== o[i] && (n = !1) } n && (u.splice(r--, 1), e = a(a.s = t[0])) } return e } var n = {}, o = { 1: 0 }, u = []; function a(r) { if (n[r]) return n[r].exports; var t = n[r] = { i: r, l: !1, exports: {} }; return e[r].call(t.exports, t, t.exports, a), t.l = !0, t.exports } a.m = e, a.c = n, a.d = function (e, r, t) { a.o(e, r) || Object.defineProperty(e, r, { enumerable: !0, get: t }) }, a.r = function (e) { "undefined" != typeof Symbol && Symbol.toStringTag && Object.defineProperty(e, Symbol.toStringTag, { value: "Module" }), Object.defineProperty(e, "__esModule", { value: !0 }) }, a.t = function (e, r) { if (1 & r && (e = a(e)), 8 & r) return e; if (4 & r && "object" == typeof e && e && e.__esModule) return e; var t = Object.create(null); if (a.r(t), Object.defineProperty(t, "default", { enumerable: !0, value: e }), 2 & r && "string" != typeof e) for (var n in e) a.d(t, n, function (r) { return e[r] }.bind(null, n)); return t }, a.n = function (e) { var r = e && e.__esModule ? function () { return e.default } : function () { return e }; return a.d(r, "a", r), r }, a.o = function (e, r) { return Object.prototype.hasOwnProperty.call(e, r) }, a.p = "/"; var p = this.webpackJsonpmoviereactapp = this.webpackJsonpmoviereactapp || [], i = p.push.bind(p); p.push = r, p = p.slice(); for (var l = 0; l < p.length; l++)r(p[l]); var f = i; t() }([])</script>
+
+
+</body>
+</html>
