@@ -100,7 +100,7 @@ public class LoginController {
                 model.addAttribute("user",user);
                 return "register";
             }
-            return "redirect:/";
+            return "redirect:/login";
         }
     }
 

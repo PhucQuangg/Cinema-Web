@@ -3,7 +3,6 @@
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/cinema_back_end" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/cinema_back_end/cinema-backend" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/cinema_client" vcs="Git" />
   </component>
 </project>

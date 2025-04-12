@@ -58,116 +58,116 @@ public class CinemaBackEndApplication {
 
     @PostConstruct
     public void init() {
-//        Room room = roomRepository.findById(1).get();
-//
-//        for(int i=1;i<=16;i++){
-//            Seat seat = new Seat();
-//            seat.setName("A"+i);
-//            seat.setActive(true);
-//            seat.setRoom(room);
-//            seatRepository.save(seat);
-//        }
-//
-//        for(int i=1;i<=16;i++){
-//            Seat seat = new Seat();
-//            seat.setName("B"+i);
-//            seat.setActive(true);
-//            seat.setRoom(room);
-//            seatRepository.save(seat);
-//        }
-//        for(int i=1;i<=16;i++){
-//            Seat seat = new Seat();
-//            seat.setName("C"+i);
-//            seat.setActive(true);
-//            if(i>2 && i<15) {
-//            	seat.setVip(true);
-//            }
-//            seat.setRoom(room);
-//            seatRepository.save(seat);
-//        }
-//        for(int i=1;i<=16;i++){
-//            Seat seat = new Seat();
-//            seat.setName("D"+i);
-//            seat.setActive(true);
-//            if(i>2 && i<15) {
-//            	seat.setVip(true);
-//            }
-//            seat.setRoom(room);
-//            seatRepository.save(seat);
-//        }
-//        for(int i=1;i<=16;i++){
-//            Seat seat = new Seat();
-//            seat.setName("E"+i);
-//            seat.setActive(true);
-//            if(i>2 && i<15) {
-//            	seat.setVip(true);
-//            }
-//            seat.setRoom(room);
-//            seatRepository.save(seat);
-//        }
-//        for(int i=1;i<=16;i++){
-//            Seat seat = new Seat();
-//            seat.setName("F"+i);
-//            seat.setActive(true);
-//            if(i>2 && i<15) {
-//            	seat.setVip(true);
-//            }
-//            seat.setRoom(room);
-//            seatRepository.save(seat);
-//        }
-//
-//        for(int i=1;i<=16;i++){
-//            Seat seat = new Seat();
-//            seat.setName("G"+i);
-//            seat.setActive(true);
-//            if(i>2 && i<15) {
-//            	seat.setVip(true);
-//            }
-//            seat.setRoom(room);
-//            seatRepository.save(seat);
-//        }
-//        for(int i=1;i<=16;i++){
-//            Seat seat = new Seat();
-//            seat.setName("H"+i);
-//            seat.setActive(true);
-//            if(i>2 && i<15) {
-//            	seat.setVip(true);
-//            }
-//            seat.setRoom(room);
-//            seatRepository.save(seat);
-//        }
-//        for(int i=1;i<=16;i++){
-//            Seat seat = new Seat();
-//            seat.setName("D"+i);
-//            seat.setRoom(room);
-//            seat.setActive(true);
-//            seatRepository.save(seat);
-//        }
-//        for(int i=1;i<=16;i++){
-//            Seat seat = new Seat();
-//            seat.setName("E"+i);
-//            seat.setRoom(room);
-//            seat.setActive(true);
-//            seatRepository.save(seat);
-//        }
-//
-//        List<User> users = userService.findAll();
-//
-//        if (users.isEmpty()) {
-//            User admin = new User();
-//            Set<Role> roles = new HashSet<>();
-//            Role roleAdmin = new Role();
-//            roleAdmin.setName("ROLE_ADMIN");
-//            Role roleClient = new Role();
-//            roleClient.setName("ROLE_CLIENT");
-//            roles.add(roleAdmin);
-//            roles.add(roleClient);
-//            admin.setFullName("Admin");
-//            admin.setUsername("admin@gmail.com");
-//            admin.setPassword("123456");
-//            admin.setRoles(roles);
-//            userService.save(admin);
-//         }
+        Room room = roomRepository.findById(1).get();
+
+        for(int i=1;i<=16;i++){
+            Seat seat = new Seat();
+            seat.setName("A"+i);
+            seat.setActive(true);
+            seat.setRoom(room);
+            seatRepository.save(seat);
+        }
+
+        for(int i=1;i<=16;i++){
+            Seat seat = new Seat();
+            seat.setName("B"+i);
+            seat.setActive(true);
+            seat.setRoom(room);
+            seatRepository.save(seat);
+        }
+        for(int i=1;i<=16;i++){
+            Seat seat = new Seat();
+            seat.setName("C"+i);
+            seat.setActive(true);
+            if(i>2 && i<15) {
+            	seat.setVip(true);
+            }
+            seat.setRoom(room);
+            seatRepository.save(seat);
+        }
+        for(int i=1;i<=16;i++){
+            Seat seat = new Seat();
+            seat.setName("D"+i);
+            seat.setActive(true);
+            if(i>2 && i<15) {
+            	seat.setVip(true);
+            }
+            seat.setRoom(room);
+            seatRepository.save(seat);
+        }
+        for(int i=1;i<=16;i++){
+            Seat seat = new Seat();
+            seat.setName("E"+i);
+            seat.setActive(true);
+            if(i>2 && i<15) {
+            	seat.setVip(true);
+            }
+            seat.setRoom(room);
+            seatRepository.save(seat);
+        }
+        for(int i=1;i<=16;i++){
+            Seat seat = new Seat();
+            seat.setName("F"+i);
+            seat.setActive(true);
+            if(i>2 && i<15) {
+            	seat.setVip(true);
+            }
+            seat.setRoom(room);
+            seatRepository.save(seat);
+        }
+
+        for(int i=1;i<=16;i++){
+            Seat seat = new Seat();
+            seat.setName("G"+i);
+            seat.setActive(true);
+            if(i>2 && i<15) {
+            	seat.setVip(true);
+            }
+            seat.setRoom(room);
+            seatRepository.save(seat);
+        }
+        for(int i=1;i<=16;i++){
+            Seat seat = new Seat();
+            seat.setName("H"+i);
+            seat.setActive(true);
+            if(i>2 && i<15) {
+            	seat.setVip(true);
+            }
+            seat.setRoom(room);
+            seatRepository.save(seat);
+        }
+        for(int i=1;i<=16;i++){
+            Seat seat = new Seat();
+            seat.setName("D"+i);
+            seat.setRoom(room);
+            seat.setActive(true);
+            seatRepository.save(seat);
+        }
+        for(int i=1;i<=16;i++){
+            Seat seat = new Seat();
+            seat.setName("E"+i);
+            seat.setRoom(room);
+            seat.setActive(true);
+            seatRepository.save(seat);
+        }
+
+        List<User> users = userService.findAll();
+
+        if (users.isEmpty()) {
+            User admin = new User();
+            Set<Role> roles = new HashSet<>();
+            Role roleAdmin = new Role();
+            roleAdmin.setName("ROLE_ADMIN");
+            Role roleClient = new Role();
+            roleClient.setName("ROLE_CLIENT");
+            roles.add(roleAdmin);
+            roles.add(roleClient);
+            admin.setFullName("Admin");
+            admin.setUsername("admin@gmail.com");
+            admin.setPassword("123456");
+            admin.setRoles(roles);
+            userService.save(admin);
+         }
 
         List<Movie> movies = movieRepository.findAll();
         if (movies.isEmpty()) {

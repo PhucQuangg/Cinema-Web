@@ -190,7 +190,7 @@
   <script th:inline="javascript">
   function callAPIGetRooms(){
 	  $.ajax({
-	      url: "https://cinema-backend-4d8b1f2b9d44.herokuapp.com/api/admin/rooms?branchId=" + $("#listBranch").find(":selected").val(),
+	      url: "http://localhost:8080/api/admin/rooms?branchId=" + $("#listBranch").find(":selected").val(),
 	      type: 'POST',
           headers: {"Authorization": "Bearer "+[[${session.jwtResponse.accessToken}]]},
           contentType: "application/json; charset=utf-8",
@@ -217,7 +217,7 @@
   }
   function callAPIGetSeats(){
 	  $.ajax({
-	      url: "/api/admin/seats?roomId=" + $("#listRoom").find(":selected").val(),
+	      url: "http://localhost:8080/api/admin/seats?roomId=" + $("#listRoom").find(":selected").val(),
 	      type: 'POST',
           headers: {"Authorization": "Bearer "+[[${session.jwtResponse.accessToken}]]},
           contentType: "application/json; charset=utf-8",
@@ -265,7 +265,7 @@
   function callAPIUpdateRoom(json){
       $.ajax({
           type: "PUT",
-          url: "/api/admin/rooms",
+          url: "http://localhost:8080/api/admin/rooms",
           headers: {"Authorization": "Bearer "+[[${session.jwtResponse.accessToken}]]},
           data: json,
           contentType: "application/json; charset=utf-8",
