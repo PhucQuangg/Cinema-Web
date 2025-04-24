@@ -2,6 +2,7 @@ package com.example.cinema_back_end.apis.admin;
 
 import java.util.List;
 
+import com.example.cinema_back_end.services.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
@@ -17,7 +18,7 @@ import com.example.cinema_back_end.services.IMovieService;
 
 public class ManangeMovieAPI {
 	@Autowired
-	private IMovieService movieService;
+	private MovieService movieService;
 	@GetMapping
 	public ResponseEntity<List<MovieDTO>> getAllMovie() {
 		return new ResponseEntity<>(movieService.findAll(),HttpStatus.OK);

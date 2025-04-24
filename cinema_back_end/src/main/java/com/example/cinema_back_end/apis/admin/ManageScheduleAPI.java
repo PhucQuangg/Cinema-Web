@@ -2,6 +2,7 @@ package com.example.cinema_back_end.apis.admin;
 
 import java.util.List;
 
+import com.example.cinema_back_end.services.ScheduleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
@@ -27,7 +28,7 @@ import com.example.cinema_back_end.services.IScheduleService;
 
 public class ManageScheduleAPI {
     @Autowired
-    private IScheduleService scheduleService;
+    private ScheduleService scheduleService;
     
     @GetMapping
     public ResponseEntity<List<ScheduleDTO>> getAllSchudules(){

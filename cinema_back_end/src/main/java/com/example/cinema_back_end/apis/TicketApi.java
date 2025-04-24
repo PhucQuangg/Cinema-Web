@@ -2,6 +2,7 @@ package com.example.cinema_back_end.apis;
 
 import com.example.cinema_back_end.dtos.TicketDTO;
 import com.example.cinema_back_end.services.ITicketService;
+import com.example.cinema_back_end.services.TicketService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,7 +14,7 @@ import java.util.List;
 
 public class TicketApi {
     @Autowired
-    private ITicketService ticketService;
+    private TicketService ticketService;
 
     @GetMapping
     public List<TicketDTO> getTicketsByUserId(@RequestParam Integer userId){

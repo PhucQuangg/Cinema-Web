@@ -2,6 +2,7 @@ package com.example.cinema_back_end.apis.admin;
 
 import java.util.List;
 
+import com.example.cinema_back_end.services.BranchService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
@@ -17,7 +18,7 @@ import com.example.cinema_back_end.services.IBranchService;
 
 public class ManageBranchAPI {
 	@Autowired
-	private IBranchService branchService;
+	private BranchService branchService;
 	@GetMapping
 	public ResponseEntity<List<BranchDTO>> getAllBranches(){
 		return new ResponseEntity<>(branchService.findAll(),HttpStatus.OK);

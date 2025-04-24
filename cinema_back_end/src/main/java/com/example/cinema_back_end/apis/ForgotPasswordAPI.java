@@ -7,6 +7,7 @@ import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import javax.security.auth.login.AccountNotFoundException;
 
+import com.example.cinema_back_end.security.service.ResetPasswordTokenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,7 +30,7 @@ public class ForgotPasswordAPI {
     private JavaMailSender mailSender;
     final private static String BASE_URL_RESET_PASSWORD=ClientURL.baseURL+"/forgot-password/reset-password";
     @Autowired
-    private IResetPasswordTokenService resetPasswordTokenService;
+    private ResetPasswordTokenService resetPasswordTokenService;
     
     @Autowired
     private IUserService userService;

@@ -1,6 +1,7 @@
 package com.example.cinema_back_end.apis;
 
 import com.example.cinema_back_end.dtos.BookingRequestDTO;
+import com.example.cinema_back_end.services.BillService;
 import com.example.cinema_back_end.services.IBillService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 public class BillApi {
     @Autowired
-    private IBillService billService;
+    private BillService billService;
 
     @PostMapping("/create-new-bill")
     public ResponseEntity<String> createNewBill(@RequestBody BookingRequestDTO bookingRequestDTO) {

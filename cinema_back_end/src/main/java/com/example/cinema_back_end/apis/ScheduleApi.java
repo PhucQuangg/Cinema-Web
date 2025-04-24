@@ -2,6 +2,7 @@ package com.example.cinema_back_end.apis;
 
 import com.example.cinema_back_end.dtos.ScheduleDTO;
 import com.example.cinema_back_end.services.IScheduleService;
+import com.example.cinema_back_end.services.ScheduleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,7 +15,7 @@ import java.util.List;
 
 public class ScheduleApi {
     @Autowired
-    private IScheduleService scheduleService;
+    private ScheduleService scheduleService;
 
 
     @GetMapping

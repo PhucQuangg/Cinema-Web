@@ -2,6 +2,7 @@ package com.example.cinema_back_end.apis.admin;
 
 import java.util.List;
 
+import com.example.cinema_back_end.services.TicketService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
@@ -23,7 +24,7 @@ import com.example.cinema_back_end.services.ITicketService;
 
 public class ManageTicketAPI {
     @Autowired
-    private ITicketService ticketService;
+    private TicketService ticketService;
 
     @GetMapping
     public ResponseEntity<List<TicketDTO>> getAllTickets(){

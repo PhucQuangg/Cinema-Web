@@ -2,6 +2,7 @@ package com.example.cinema_back_end.apis;
 
 import com.example.cinema_back_end.dtos.SeatDTO;
 import com.example.cinema_back_end.services.ISeatService;
+import com.example.cinema_back_end.services.SeatService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,7 +14,7 @@ import java.util.List;
 
 public class SeatApi {
     @Autowired
-    private ISeatService seatService;
+    private SeatService seatService;
 
     @GetMapping
     public List<SeatDTO> getSeatsByScheduleId(@RequestParam Integer scheduleId,@RequestParam Integer userId){

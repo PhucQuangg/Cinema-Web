@@ -2,6 +2,7 @@ package com.example.cinema_back_end.apis.admin;
 
 import java.util.List;
 
+import com.example.cinema_back_end.services.BillService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
@@ -19,7 +20,7 @@ import com.example.cinema_back_end.services.IBillService;
 
 public class ManageBillAPI {
 	@Autowired
-	private IBillService billService;
+	private BillService billService;
 
 	@GetMapping
 	public ResponseEntity<List<BillDTO>> getAllBills() {

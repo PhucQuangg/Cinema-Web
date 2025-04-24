@@ -2,6 +2,7 @@
 
 import java.util.List;
 
+import com.example.cinema_back_end.security.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -29,7 +30,7 @@ import com.example.cinema_back_end.security.service.IUserService;
 @CrossOrigin(value = "*")
 public class ManageAccountAPI {
 	@Autowired
-	private IUserService accountService;
+	private UserService accountService;
 	@GetMapping
 	public ResponseEntity<List<User>> getAllUser(){
 		return new ResponseEntity<>(accountService.findAll(), HttpStatus.OK);

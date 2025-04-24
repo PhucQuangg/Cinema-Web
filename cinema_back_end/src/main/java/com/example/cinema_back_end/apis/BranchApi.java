@@ -2,6 +2,7 @@ package com.example.cinema_back_end.apis;
 
 import com.example.cinema_back_end.dtos.BranchDTO;
 import com.example.cinema_back_end.repositories.IBranchRepository;
+import com.example.cinema_back_end.services.BranchService;
 import com.example.cinema_back_end.services.IBranchService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,7 +17,7 @@ import java.util.List;
 
 public class BranchApi {
     @Autowired
-    private IBranchService branchService;
+    private BranchService branchService;
 
     @GetMapping("/movie/branches-schedules")
     private ResponseEntity<List<BranchDTO>> getBranchesThatShowTheMovie(@RequestParam Integer movieId){

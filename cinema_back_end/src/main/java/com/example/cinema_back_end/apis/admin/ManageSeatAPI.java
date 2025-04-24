@@ -2,6 +2,7 @@ package com.example.cinema_back_end.apis.admin;
 
 import java.util.List;
 
+import com.example.cinema_back_end.services.SeatService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
@@ -17,7 +18,7 @@ import com.example.cinema_back_end.services.ISeatService;
 
 public class ManageSeatAPI {
 	@Autowired
-	private ISeatService seatService;
+	private SeatService seatService;
 	@PostMapping
 	public ResponseEntity<List<SeatDTO>> getAllseatsByRoom(@Param("roomId") Integer roomId) {
 		return new ResponseEntity<>(seatService.getAllSeatByRoom(roomId),HttpStatus.OK);

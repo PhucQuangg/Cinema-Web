@@ -4,6 +4,7 @@ import com.example.cinema_back_end.dtos.MovieDTO;
 import com.example.cinema_back_end.entities.Movie;
 import com.example.cinema_back_end.repositories.IMovieRepository;
 import com.example.cinema_back_end.services.IMovieService;
+import com.example.cinema_back_end.services.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +18,7 @@ import java.util.List;
 
 public class MovieApi {
     @Autowired
-    private IMovieService movieService;
+    private MovieService movieService;
 
     @Autowired
     private IMovieRepository movieRepository;

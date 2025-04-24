@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.example.cinema_back_end.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,9 +18,6 @@ import com.example.cinema_back_end.dtos.BranchDTO;
 import com.example.cinema_back_end.dtos.MovieDTO;
 import com.example.cinema_back_end.dtos.ScheduleDTO;
 import com.example.cinema_back_end.dtos.TicketDTO;
-import com.example.cinema_back_end.services.IBranchService;
-import com.example.cinema_back_end.services.IMovieService;
-import com.example.cinema_back_end.services.ITicketService;
 
 @RestController
 @RequestMapping("/api/admin/report")
@@ -27,13 +25,13 @@ import com.example.cinema_back_end.services.ITicketService;
 
 public class ManageReportAPI {
 	@Autowired
-	private ITicketService ticketService;
+	private TicketService ticketService;
 
 	@Autowired
-	private IBranchService branchService;
+	private BranchService branchService;
 	
 	@Autowired
-	private IMovieService movieService;
+	private MovieService movieService;
 
 	@GetMapping("/branches")
 	public ResponseEntity<List<BranchDTO>> getAllBranches() {

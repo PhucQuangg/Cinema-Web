@@ -68,7 +68,7 @@ public class BillService implements IBillService{
 	            ticket.setSchedule(schedule);
 	            ticket.setSeat(seatRepository.getById(seatId));
 	            ticket.setBill(createdBill);
-	            ticket.setQrImageURL("https://scontent-sin6-2.xx.fbcdn.net/v/t1.15752-9/268794058_655331555823095_3657556108194277679_n.png?_nc_cat=105&ccb=1-5&_nc_sid=ae9488&_nc_ohc=BrNXGO8HufkAX_OGjWc&_nc_ht=scontent-sin6-2.xx&oh=03_AVK_zaJj7pziY9nLrVqoIQJAzbomu4KPgED1PxFFpYfCrQ&oe=61F778D8");
+				ticket.setQrImageURL("https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=cinema_ticket_demo");
 	            ticketRepository.save(ticket);
 	        });
         }else {

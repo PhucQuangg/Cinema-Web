@@ -2,6 +2,7 @@ package com.example.cinema_back_end.apis;
 
 import java.util.List;
 
+import com.example.cinema_back_end.security.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,7 +27,7 @@ import com.example.cinema_back_end.security.service.IUserService;
 public class AccountAPI {
 
     @Autowired
-    private IUserService userService;
+    private UserService userService;
     
     @GetMapping
     private ResponseEntity<User> getProfileUser(@RequestParam Integer userId){
