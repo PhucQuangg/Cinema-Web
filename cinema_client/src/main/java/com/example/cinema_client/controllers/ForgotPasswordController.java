@@ -83,6 +83,9 @@ public class ForgotPasswordController {
             ResponseEntity<String> response = restTemplate.postForEntity(urlTemplate,null,String.class, params);
             model.addAttribute("status", 1);
             model.addAttribute("message", response.getBody());
+			model.addAttribute("redirectToLogin", true);
+
+
 		} catch (Exception e) {
 			model.addAttribute("status", 0);
 			model.addAttribute("message", e.getMessage());
